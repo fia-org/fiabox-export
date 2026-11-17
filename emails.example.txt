@@ -1,0 +1,6 @@
+# One account email per line. Lines starting with # are ignored.
+# The scripts process every email listed here (via superAdmin impersonation).
+# Copy this file to emails.txt and fill in the real accounts.
+alice@example.com
+bob@example.com
+carol@example.com

@@ -1,0 +1,6324 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Numsync full rest api",
+    "description" : "This is the Numsync Full Rest Api ",
+    "contact" : {
+      "email" : "bu.numvision.technique@visiativ.com"
+    },
+    "version" : "1.0.0"
+  },
+  "tags" : [ {
+    "name" : "User",
+    "description" : "Operations that can be done by the agent software, mobile app or any usage performed by a user account"
+  }, {
+    "name" : "Admin",
+    "description" : "Operations that can only be done by the admin users"
+  } ],
+  "paths" : {
+    "/ws/admin/api/accounts" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAccounts_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterEntity",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterEmail",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterRole",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "EntityName", "Email", "Role" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "createAccount_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/accounts/{account_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAccount_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "modifyAccount_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Account"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteAccount_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/accounts/{account_id}/admin/entities" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAllEntitiesAdministredByUser_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/accounts/{account_id}/admin/entities/{entity_id}" : {
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "addAdminUserToEntity_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "entity_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "removeAdminUserToEntity_1",
+        "parameters" : [ {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "entity_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/agents/{agent_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAgent_1",
+        "parameters" : [ {
+          "name" : "agent_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Agent"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "modifyAgent_1",
+        "parameters" : [ {
+          "name" : "agent_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Agent"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Agent"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteAgent_1",
+        "parameters" : [ {
+          "name" : "agent_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/agents" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAgentList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterLogin",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterType",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "Login", "Type" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Agent"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "createAgent_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Agent"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Agent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/agents/{agent_id}/configurations" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAgentConfiguration_1",
+        "parameters" : [ {
+          "name" : "agent_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "updateAgentConfiguration_1",
+        "parameters" : [ {
+          "name" : "agent_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/auth" : {
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "authenticate_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/configurations/{configuration_key}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getServerConfigurationByKey_1",
+        "parameters" : [ {
+          "name" : "configuration_key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "setServerConfiguration_1",
+        "parameters" : [ {
+          "name" : "configuration_key",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "*/*" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/configurations" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getServerConfiguration_1",
+        "parameters" : [ {
+          "name" : "filterConfigKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/entities" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getListOfEntities_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterName",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "Name" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Entity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "createEntity_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Entity"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Entity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/entities/{id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getEntity_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Entity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "updateEntity_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Entity"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Entity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteEntity_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "*/*" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/events/synchro" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getEventSynchroList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EventSynchro"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/events/web" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getEventWebList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterPath",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterEmail",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterType",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "Path", "Email", "Type" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/EventWeb"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/publiclinks/{public_link_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getPublicLinkById_1",
+        "parameters" : [ {
+          "name" : "public_link_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublicLink"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "updatePublicLink_1",
+        "parameters" : [ {
+          "name" : "public_link_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PublicLink"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PublicLink"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deletePublicLink_1",
+        "parameters" : [ {
+          "name" : "public_link_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/publiclinks" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getPublicLinkList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterOwnerLogin",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterName",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "OwnerLogin", "Name" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/PublicLink"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/shares/{share_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getShareById_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Share"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteShare_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/shares" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getShareList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterOwnerLogin",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "OwnerLogin" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Share"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/shares/{share_id}/accounts/{account_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAccountShare_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountShare"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "modifyAccountShare_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AccountShare"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountShare"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteAccountShare_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "account_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/shares/{share_id}/accounts" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAccountShareList_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AccountShare"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "createAccountShare_1",
+        "parameters" : [ {
+          "name" : "share_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AccountShare"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AccountShare"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/synchros/{synchro_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getSynchro_1",
+        "parameters" : [ {
+          "name" : "synchro_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Synchro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "modifySynchro_1",
+        "parameters" : [ {
+          "name" : "synchro_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Synchro"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Synchro"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteSynchro_1",
+        "parameters" : [ {
+          "name" : "synchro_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/synchros" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getSynchrosList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterOwnerLogin",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterAgentName",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "filterName",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "OwnerLogin", "AgentName", "Name" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Synchro"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/version" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getApplicationVersion_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "additionalProperties" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/workingGroups" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getWorkingGroupList_1",
+        "parameters" : [ {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "filterName",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortField",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "Id", "Name" ]
+          }
+        }, {
+          "name" : "sortOrder",
+          "in" : "query",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "ASCENDING", "DESCENDING", "UNSORTED" ]
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/WorkingGroup"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "createWorkingGroup_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WorkingGroup"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkingGroup"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/workingGroups/{working_group_id}" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getWorkingGroup_1",
+        "parameters" : [ {
+          "name" : "working_group_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkingGroup"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "modifyWorkingGroup_1",
+        "parameters" : [ {
+          "name" : "working_group_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WorkingGroup"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/WorkingGroup"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "deleteWorkingGroup_1",
+        "parameters" : [ {
+          "name" : "working_group_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/admin/api/workingGroups/{working_group_id}/accounts" : {
+      "get" : {
+        "tags" : [ "Admin" ],
+        "operationId" : "getAllAccountInWorkingGroup_1",
+        "parameters" : [ {
+          "name" : "working_group_id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "size",
+          "in" : "query",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/resetPassword/{email}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Reset password by email",
+        "description" : "Reset account password from email given in URL. If success, a link to reset the password is send to given email.",
+        "operationId" : "resetPassword_1",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a new user account",
+        "description" : "Create a new user from Account model json object in request body. Note that 'id' and 'token' account attributes are not required.",
+        "operationId" : "createAccount_2",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "User created"
+          },
+          "400" : {
+            "description" : "Missing or invalid request body"
+          },
+          "403" : {
+            "description" : "Cannot create user for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/authBySuperAdmin/{email}" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Authenticate a user account by email with superAdmin account credentials",
+        "description" : "Authenticate a user account from email given in URL with superAdmin account login and password attributes in request body.",
+        "operationId" : "authentificationBySuperAdmin_1",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Account authentication success"
+          },
+          "400" : {
+            "description" : "Missing or invalid request body"
+          },
+          "401" : {
+            "description" : "Authentication failed"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/token/{tokenToRemove}" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Remove a token for an account API user",
+        "description" : "Remove a token account  given in URL from authenticated account token cache server. Note : This is helpfull to force re-authentication for an specific account.",
+        "operationId" : "removeTokenIfExists_1",
+        "parameters" : [ {
+          "name" : "tokenToRemove",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Token removed success"
+          },
+          "404" : {
+            "description" : "Token not found"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/auth" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Authenticate a user account",
+        "description" : "Authenticate a user with only login and password attributes in request body.",
+        "operationId" : "authentification_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Account authentication success"
+          },
+          "400" : {
+            "description" : "Missing or invalid request body"
+          },
+          "401" : {
+            "description" : "Authentication failed"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/infos/quota" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get account info quota",
+        "description" : "Get info quota for account authenticated by token in header.",
+        "operationId" : "getInfoQuota_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/accounts/{email}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get active account infos by email",
+        "description" : "Get active account infos from email given in URL.",
+        "operationId" : "getActiveAccount_1",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/auth/register" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Register an agent",
+        "description" : "Agent registration with user account credentials and agent json model (agent ID and terminal UID). Note : Before an agent belong to an account can be authenticated, needs to register agent with agentId and terminalUID.",
+        "operationId" : "register_1",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded; charset=utf-8" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "login" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "agentId" : {
+                    "type" : "string"
+                  },
+                  "terminalUID" : {
+                    "type" : "string"
+                  },
+                  "agentName" : {
+                    "type" : "string"
+                  },
+                  "type" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Agent registration success"
+          },
+          "404" : {
+            "description" : "Agent authentication failed. Agent not found"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/agent/current" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get agent infos",
+        "description" : "Get agent infos for agent authenticate by token given in header.",
+        "operationId" : "getAgent_2",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "400" : {
+            "description" : "Missing or invalid request body"
+          },
+          "401" : {
+            "description" : "Invalid authentication Agent Token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/auth/login" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Authenticate an agent",
+        "description" : "Authenticate an agent with user account credentials and agent json model (agent ID and terminal UID). Note : Before an agent can be authenticated, needs to be registered from 'auth/register' URL service.",
+        "operationId" : "login_1",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded; charset=utf-8" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "login" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "agentId" : {
+                    "type" : "string"
+                  },
+                  "terminalUID" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Agent authentication success"
+          },
+          "404" : {
+            "description" : "Agent authentication failed. Agent not found"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/auth/bind" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Bind an agent",
+        "description" : "Bind an agent with user account credentials and agent json model (agent ID and terminal UID). Note : Before an agent belong to an account can be authenticated, needs to bind agentId with the terminalUID.",
+        "operationId" : "boundTerminalToAgent_1",
+        "requestBody" : {
+          "content" : {
+            "application/x-www-form-urlencoded; charset=utf-8" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "login" : {
+                    "type" : "string"
+                  },
+                  "password" : {
+                    "type" : "string"
+                  },
+                  "agentId" : {
+                    "type" : "string"
+                  },
+                  "terminalUID" : {
+                    "type" : "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Agent binding success"
+          },
+          "404" : {
+            "description" : "Agent authentication failed. Agent not found"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/agent/active" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Verify if agent is active",
+        "description" : "Verify if agent is active for agent authenticate by token given in header.",
+        "operationId" : "isAgentActive_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication Agent Token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/agent/infos" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get agent configurations",
+        "description" : "Get agent configurations for agent authenticate by token given in header.",
+        "operationId" : "getAgentConfig_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication Agent Token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/auth/token/{tokenToRemove}" : {
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Remove a token agent",
+        "description" : "Remove a token agent given in URL from authenticated agent token cache server. Note : This is helpfull to force re-authentication for an specific agent.",
+        "operationId" : "removeTokenIfExists_2",
+        "parameters" : [ {
+          "name" : "tokenToRemove",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Agent binding success"
+          },
+          "404" : {
+            "description" : "Agent authentication failed. Agent not found"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/agent/update" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Store agent infos",
+        "description" : "Store new agent infos given in request body for agent authenticate by token given in header.",
+        "operationId" : "storeAgentInfo_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AgentInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication Agent Token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/agent/name" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Set agent name",
+        "description" : "Set agent name with new name in request body",
+        "operationId" : "setAgentName_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "400" : {
+            "description" : "Missing or invalid request body"
+          },
+          "401" : {
+            "description" : "Invalid authentication Agent Token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/allFiles" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get all the accessible root folders for a user",
+        "description" : "Fetches all the accessible root folders of a user by authentication token in the header.",
+        "operationId" : "getAllFiles_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/billing/{param}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "operationId" : "getBillingInfos_1",
+        "parameters" : [ {
+          "name" : "param",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "token",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/vnd.ms-excel" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/cloudFolders" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "List all cloud folders for a user",
+        "description" : "Get list of cloud folders infos for user authenticated by token in the header.",
+        "operationId" : "listCloudFolder_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update cloud folder by id for a user",
+        "description" : "Update cloud folder infos by cloudFolderID for user authenticated by token in the header.",
+        "operationId" : "updateCloudFolder_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CloudFolder"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a new root cloud folder for user",
+        "description" : "Create a new cloud folder for user authenticated by token in the header.",
+        "operationId" : "createCloudFolder_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/CloudFolder"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/cloudFolders/myBox" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get cloud folder 'myBox' for a user",
+        "description" : "Get cloud folder 'myBox' for user authenticated by token in the header.",
+        "operationId" : "getCloudFolderMyBox_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create the 'MyBox' cloud folder for a user",
+        "description" : "Create (or get if already exists) the 'MyBox' cloud folder for user authenticated by token in the header.",
+        "operationId" : "createCloudFolderMyBox_1",
+        "responses" : {
+          "201" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/cloudFolders/{id}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get cloud folder by id for a user",
+        "description" : "Get cloud folder by cloudFolderId for user authenticated by token in the header.",
+        "operationId" : "getCloudFolder_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete cloud folder by id for a user",
+        "description" : "Delete cloud folder by cloudFolderId for user authenticated by token in the header.",
+        "operationId" : "deleteCloudFolder_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "head" : {
+        "tags" : [ "User" ],
+        "summary" : "Get cloud folder infos by id for a user",
+        "description" : "Get cloud folder infos by cloudFolderID for user authenticated by token in the header.",
+        "operationId" : "getInfosCloudFolder_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/files/{idDc}/{path}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Download file  by cloudFodlerId and subPath for a user",
+        "description" : "Download file by cloudFodlerId and subPath for user authenticated by token in the header.",
+        "operationId" : "getFile_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update file meta infos for a user",
+        "description" : "Update file meta infos for user authenticated by token in the header.",
+        "operationId" : "updateFile_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/File"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "410" : {
+            "description" : "Resource already found in destination"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete file by cloudFodlerId and subPath for a user",
+        "description" : "Delete file by cloudFodlerId and subPath for user authenticated by token in the header.",
+        "operationId" : "delete_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "head" : {
+        "tags" : [ "User" ],
+        "summary" : "Get file infos by cloudFodlerId and subPath for a user",
+        "description" : "Get file infos by cloudFodlerId and subPath for user authenticated by token in the header.",
+        "operationId" : "getFileMeta_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/files/copy/{idDc}/{path}" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Copy file for a user",
+        "description" : "Copy an existing file (given in url param) to another path (given in fileMeta body)  for user authenticated by token in the header.",
+        "operationId" : "copyFile_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/File"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "410" : {
+            "description" : "Resource already found in destination"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/files" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update file for a user",
+        "description" : "Update file via application/octetStream content for user authenticated by token in the header. Needs to give fileInfos model with idCloudFolder and path attributes in header for file destination.",
+        "operationId" : "updateFile_2",
+        "requestBody" : {
+          "content" : {
+            "application/octet-stream" : {
+              "schema" : {
+                "type" : "object"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Upload a new file for a user",
+        "description" : "Upload a new file via MultipartForm for user authenticated by token in the header. Needs to give fileInfos model with idCloudFolder and path attributes in header for file destination.",
+        "operationId" : "postFile_1",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FileUploadForm"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/folders/{idDc}/{path}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "List folder for a user",
+        "description" : "List folder by cloudFodlerId and subPath in URL for user authenticated by token in the header.",
+        "operationId" : "listDirectory_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update folder meta infos for a user",
+        "description" : "Update folder meta infos by cloudFodlerId and subPath in URL for user authenticated by token in the header.",
+        "operationId" : "updateFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Folder"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete folder for a user",
+        "description" : "Delete folder by cloudFodlerId and subPath in URL for user authenticated by token in the header.",
+        "operationId" : "delete_2",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "head" : {
+        "tags" : [ "User" ],
+        "summary" : "Get folder meta infos for a user",
+        "description" : "Get folder meta infos by cloudFodlerId and subPath in URL for user authenticated by token in the header.",
+        "operationId" : "getInfos_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/folders" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create new folder for a user",
+        "description" : "Create new folder by cloudFodlerId and subPath in request body for user authenticated by token in the header.",
+        "operationId" : "createFolder_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Folder"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/folders/copy/{idDc}/{path}" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Copy folder for a user",
+        "description" : "Copy folder to another path by cloudFodlerId and subPath with new folderInfos destination in URL for user authenticated by token in the header.",
+        "operationId" : "copyFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "path",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Folder"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/folders/{idDc}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "List cloudFolder for a user",
+        "description" : "List cloudFolder by cloudFodlerId in URL for user authenticated by token in the header.",
+        "operationId" : "listCloudFolder_2",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/infos/sync" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Send sync infos",
+        "description" : "Send sync infos from agent. Used only by agent software.",
+        "operationId" : "storeInfoSynchronisation_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SyncInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/infos/agent" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Send agent infos",
+        "description" : "Send agent infos from agent. Used only by agent software.",
+        "operationId" : "storeInfoAgent_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/AgentInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/infos/propagation" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Send propagation infos",
+        "description" : "Send propagation infos from agent. Used only by agent software.",
+        "operationId" : "storeInfoPropagation_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PropagationInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/infosPropagations" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "operationId" : "storeInfoPropagation_2",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PropagationInfo"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PropagationInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/publicLinks/id/{id}/notification" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Send a notification for public link creation by id",
+        "description" : "Send a notification after public link creation by publicLinkId given in URL for user authenticated by token in the header.",
+        "operationId" : "sendNotification_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PublicLinkNotification"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/publicLinks/id/{id}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a public link by id",
+        "description" : "Get a public link by publicLinkId given in URL for user authenticated by token in the header.",
+        "operationId" : "getPublicLinkByID_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete a public link",
+        "description" : "Delete a public link from publicLinkID given in URL for user authenticated by token in the header.",
+        "operationId" : "deletePublicLink_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/publicLinks/path/{idDc}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a public link by cloud folder id",
+        "description" : "Get a public link by cloud folder id given in URL for user authenticated by token in the header.",
+        "operationId" : "getPublicLinkByCloudFolderId_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a public link on a cloud folder",
+        "description" : "Create a public link on a cloud folder from cloudFolderId given in URL for user authenticated by token in the header.",
+        "operationId" : "createPublicLinkByCloudFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/publicLinks/path/{idDc}/{subPath}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a public link by path",
+        "description" : "Get a public link by cloudFolderId and subPath given in URL for user authenticated by token in the header.",
+        "operationId" : "getPublicLinkByPath_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subPath",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a public link on a sub folder or file",
+        "description" : "Create a public link on a sub folder or file from cloudFolderId and subPath given in URL for user authenticated by token in the header.",
+        "operationId" : "createPublicLinkBySubFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subPath",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/publicLinks" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get the list of public links",
+        "description" : "Get the list of public links for user authenticated by token in the header.",
+        "operationId" : "getListOfPublicLink_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update a public link",
+        "description" : "Update a public link with publicLink json model given in requestBody for user authenticated by token in the header.",
+        "operationId" : "updatePublicLink_2",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PublicLink"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/id/{idShare}/accounts" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get the list of shared accounts of a share",
+        "description" : "Get the list of shared accounts of a share by shareId given in URL for user authenticated by token in the header.",
+        "operationId" : "getBindings_1",
+        "parameters" : [ {
+          "name" : "idShare",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update binding between account emails list and a share",
+        "description" : "@Deprecated : use /accounts/id/{idShareAccount}/{shareType} Update binding between account emails list and a share by shareId given in URL and ShareCreationRequest json model (emails list and message) in requestBody for user authenticated by token in the header.",
+        "operationId" : "updateBinding_1",
+        "parameters" : [ {
+          "name" : "idShare",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ShareCreationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Bind account emails to a share",
+        "description" : "Bind account emails to a share by shareId given in URL and ShareCreationRequest json model (emails list and message) in requestBody for user authenticated by token in the header.",
+        "operationId" : "createBinding_1",
+        "parameters" : [ {
+          "name" : "idShare",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ShareCreationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get the list of shares",
+        "description" : "Get the list of shares for user authenticated by token in the header.",
+        "operationId" : "getListOfShare_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/id/{idShare}/accounts/{email}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a shared account infos of a share",
+        "description" : "Get a shared account infos of a share by shareId and accountEmail given in URL for user authenticated by token in the header.",
+        "operationId" : "getBinding_1",
+        "parameters" : [ {
+          "name" : "idShare",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete binding between an account and a share",
+        "description" : "Delete binding between an account and a share by shareId and account email given in URL for user authenticated by token in the header.",
+        "operationId" : "deleteBinding_1",
+        "parameters" : [ {
+          "name" : "idShare",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/path/{idDc}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a share by cloud folder id",
+        "description" : "Get a share by cloudFolderID given in URL for user authenticated by token in the header.",
+        "operationId" : "getShareByCloudFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a share on cloud folder",
+        "description" : "Create a share on cloud folder by cloudFolderID given in URL for user authenticated by token in the header.",
+        "operationId" : "createShareOnCloudFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ShareCreationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/path/{idDc}/{subPath}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a share by path",
+        "description" : "Get a share by cloudFolderID and subPath given in URL for user authenticated by token in the header.",
+        "operationId" : "getShareBySubFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subPath",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a share on path",
+        "description" : "Create a share on a folder by cloudFolderID and subPath given in URL for user authenticated by token in the header.",
+        "operationId" : "createShareOnSubFolder_1",
+        "parameters" : [ {
+          "name" : "idDc",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "subPath",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ShareCreationRequest"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/accounts/id/{idShareAccount}/{shareType}" : {
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update type of share for a shared account",
+        "description" : "Update type of share for a shared account by shareAccountId and new shareType given in URL for user authenticated by token in the header.",
+        "operationId" : "updateShareAccount_1",
+        "parameters" : [ {
+          "name" : "idShareAccount",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "shareType",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/shares/id/{id}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get a share by id",
+        "description" : "Get a share by shareId given in URL for user authenticated by token in the header.",
+        "operationId" : "getShareById_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete a share by id",
+        "description" : "Delete a share by id by shareId given in URL for user authenticated by token in the header.",
+        "operationId" : "deleteShare_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/sso" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "List all SSO",
+        "description" : "Get list of all SSO configurations.",
+        "operationId" : "listSso_1",
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/link" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a new synchro for an agent",
+        "description" : "Create a new synchro for an agent. Used only by agent software.",
+        "operationId" : "createNewSyncAndLinkToExistingCloud_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Synchronization"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/{id}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get sync by id for an agent",
+        "description" : "Get sync by syncId for an agent. Used only by agent software.",
+        "operationId" : "getSynchro_2",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Synchronization"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "User" ],
+        "summary" : "Delete a synchro for an agent",
+        "description" : "Delete a synchro for an agent. Used only by agent software.",
+        "operationId" : "deleteSync_1",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get list of syncs for an agent",
+        "description" : "Get list of syncs for an agent. Used only by agent software.",
+        "operationId" : "getListSynchros_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Synchronization"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "User" ],
+        "summary" : "Update a synchro for an agent",
+        "description" : "Update a synchro for an agent. Used only by agent software.",
+        "operationId" : "updateSync_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Synchronization"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Create a new cloud folder and synchro from an agent",
+        "description" : "Create a new cloud folder and synchro from an agent. Used only by agent software.",
+        "operationId" : "createNewSynchroAndDossierCloud_1",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Synchronization"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/shares/infos" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get List of sync and linked shares infos for an agent",
+        "description" : "Get List of sync and linked shares infos for an agent. Used only by agent software.",
+        "operationId" : "getSynchrosAndShareInfoMap_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SyncSharingInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/shares/accounts" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get shared account bind to folder sync for an agent",
+        "description" : "@Deprecated.",
+        "operationId" : "getListComptePartage_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ShareByAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/shares/synchronisable" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get shared folder that are not yet sync for an agent",
+        "description" : "Get shared folder that are not yet sync for an agent. Used only by agent software.",
+        "operationId" : "getSynchronisableComptePartageNonSyncYet_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ShareByAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/folders/unsync/infos" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get list of folder non sync and linked shares infos for an agent",
+        "description" : "Get list of folder non sync and linked shares infos for an agent. Used only by agent software.",
+        "operationId" : "getNonSynchronizedCloudFolderAndShareInfo_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/CloudFolderSharingInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/syncs/quota" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Get quota account info asked from an agent",
+        "description" : "Get quota account info asked from an agent. Used only by agent software.",
+        "operationId" : "getInfoQuota_2",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuotaInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/agent/reboot" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Check if agent need to reboot",
+        "description" : "Check if agent need to reboot by agent authentication token in header.",
+        "operationId" : "shouldReboot_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/ping" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Ping endpoint to test service accessibility",
+        "description" : "Ping endpoint to test service accessibility.",
+        "operationId" : "ping_1",
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/permissions/{email}/{agentId}/{fullPath}" : {
+      "get" : {
+        "tags" : [ "User" ],
+        "summary" : "Check if an agent has permission to Sync.",
+        "description" : "Check if an agent has permission to Sync. Used initialy for sync server check.",
+        "operationId" : "checkPermissionsToSync_1",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "agentId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "fullPath",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/ws/api/agent/logs" : {
+      "post" : {
+        "tags" : [ "User" ],
+        "summary" : "Upload a log from an agent",
+        "description" : "Upload a log from an agent retrieved from authenticated agent token cache server.",
+        "operationId" : "postAgentLogs_1",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/FileUploadForm"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Operation success"
+          },
+          "401" : {
+            "description" : "Invalid authentication token"
+          },
+          "403" : {
+            "description" : "Forbidden for some security reasons"
+          },
+          "500" : {
+            "description" : "Internal error"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Account" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "login" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "token" : {
+            "type" : "string"
+          },
+          "locale" : {
+            "type" : "string"
+          },
+          "timezone" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Entity" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "whiteList" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "sharingBypassWhiteList" : {
+            "type" : "boolean"
+          },
+          "quotaAllowedByWhiteListInGo" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaAllowedByPartageInGo" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaNbUserMax" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaNbUserUsed" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaMaxInGo" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaUsedInBytes" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "quotaNbUserMaxBlocking" : {
+            "type" : "boolean"
+          },
+          "exceedingQuotaPolicy" : {
+            "type" : "string",
+            "enum" : [ "BLOCK", "INFORM" ]
+          },
+          "sendDailyMail" : {
+            "type" : "boolean"
+          },
+          "sendWeeklyMail" : {
+            "type" : "boolean"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "comments" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Agent" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "localId" : {
+            "type" : "string"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "terminal" : {
+            "$ref" : "#/components/schemas/Terminal"
+          },
+          "typeTerminal" : {
+            "type" : "string",
+            "enum" : [ "PC", "PORTABLE", "MOBILE", "TABLETTE", "SERVEUR", "AUTRES" ]
+          },
+          "token" : {
+            "type" : "string"
+          },
+          "synchroList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Synchronisation"
+            }
+          },
+          "infosAgent" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InfoAgent"
+            }
+          },
+          "agentConfigProperties" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AgentConfigProperty"
+            }
+          },
+          "dossiersCloud" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DossierCloud"
+            }
+          },
+          "actif" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CloudFolder" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "myBox" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "EventSynchro" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "synchronisation" : {
+            "$ref" : "#/components/schemas/Synchro"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "endInfos" : {
+            "type" : "string"
+          },
+          "endType" : {
+            "type" : "string",
+            "enum" : [ "NOT_ENDED", "SUCCESS", "FAILURE", "CANCELED" ]
+          },
+          "progressInfos" : {
+            "type" : "string"
+          },
+          "agentResourceSize" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "serverResourceSize" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "agentLastModifiedResource" : {
+            "type" : "string"
+          },
+          "serverLastModifiedResource" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Ressource" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dossierCloud" : {
+            "$ref" : "#/components/schemas/DossierCloud"
+          },
+          "subPath" : {
+            "type" : "string"
+          },
+          "liensWebDav" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LienWebDav"
+            }
+          },
+          "liensPublics" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LienPublic"
+            }
+          },
+          "favorites" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Favorites"
+            }
+          },
+          "synchronisationList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Synchronisation"
+            }
+          },
+          "partageList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Partage"
+            }
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "onlyDossierCloud" : {
+            "type" : "boolean"
+          },
+          "box" : {
+            "type" : "boolean"
+          },
+          "pathAsUrl" : {
+            "type" : "string"
+          },
+          "virtualPath" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Synchro" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "synchronisationType" : {
+            "type" : "string",
+            "enum" : [ "MONTANT", "DESCENDANT", "BIDIRECTIONNEL", "INACTIF" ]
+          },
+          "agentPath" : {
+            "type" : "string"
+          },
+          "account" : {
+            "$ref" : "#/components/schemas/Account"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "resource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          }
+        }
+      },
+      "EventWeb" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "login" : {
+            "type" : "string"
+          },
+          "lastname" : {
+            "type" : "string"
+          },
+          "firstname" : {
+            "type" : "string"
+          },
+          "idGroup" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "ressourcePath" : {
+            "type" : "string"
+          },
+          "virtualPath" : {
+            "type" : "string"
+          },
+          "typeEvenement" : {
+            "type" : "string",
+            "enum" : [ "COMPTE_CREATION", "COMPTE_CONNEXION", "COMPTE_DECONNEXION", "COMPTE_MODIFICATION", "COMPTE_SUPPRESSION", "FICHIER_SUPPRIMER", "FICHIER_RENOMMER", "FICHIER_COPIER", "FICHIER_UPLOAD", "FICHIER_ENVOI_MAIL", "FICHIER_TELECHARGER", "FICHIER_CREER_DOSSIER", "FICHIER_DEPLACER", "VERSION_ALL_DELETED", "VERSION_FICHIER_SUPPRIMER", "VERSION_ITEM_RESTORED", "SHARING_CREATION", "SHARING_SUPPRIMER", "SHARING_ACCESS", "SHARING_ADD_ACCESS", "SHARING_REMOVE_ACCESS", "SHARING_REFUSED", "SHARING_INFORM", "LIENPUBLIC_CREATION", "PUBLICLINK_UPDATE", "LIENPUBLIC_SUPPRIMER", "LIENPUBLIC_ACCESS", "LIENWEBDAV_CREATION", "LIENWEBDAV_SUPPRIMER", "TRASH_EMPTIED", "TRASH_ITEM_DELETED", "TRASH_ITEM_RESTORED", "CRON_DELETE_EXPIRED_PUBLICLINK", "CRON_DELETE_EXPIRED_PUBLICLINK_AND_ITS_CONTENT" ]
+          },
+          "ipAddress" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PublicLink" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "validity" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "uploadAllowed" : {
+            "type" : "boolean"
+          },
+          "idCloudFolder" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "deleteContentOnExpiration" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Share" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "idCloudFolder" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "displayedName" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "shareType" : {
+            "type" : "string"
+          },
+          "owner" : {
+            "$ref" : "#/components/schemas/Account"
+          },
+          "sharesByAccount" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ShareByAccount"
+            }
+          },
+          "mine" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "AccountShare" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "typePartage" : {
+            "type" : "string",
+            "enum" : [ "READ", "WRITE" ]
+          },
+          "account" : {
+            "$ref" : "#/components/schemas/Account"
+          },
+          "active" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "WorkingGroup" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "managementExtern" : {
+            "type" : "boolean"
+          },
+          "compteWorkingGroupList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CompteWorkingGroup"
+            }
+          }
+        }
+      },
+      "QuotaInfo" : {
+        "type" : "object",
+        "properties" : {
+          "qosDownKBpS" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "qosUpKBpS" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaAuthorized" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "quotaExceeded" : {
+            "type" : "boolean"
+          },
+          "quotaUsed" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "AgentInfo" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "agentId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "version" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AdminGroupe" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "groupe" : {
+            "$ref" : "#/components/schemas/Groupe"
+          }
+        }
+      },
+      "AgentConfigProperty" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "key" : {
+            "$ref" : "#/components/schemas/AgentConfigPropertyKey"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AgentConfigPropertyKey" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "defaultValue" : {
+            "type" : "string"
+          },
+          "interfaceAdmin" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Compte" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "login" : {
+            "type" : "string"
+          },
+          "telephone" : {
+            "type" : "string"
+          },
+          "actif" : {
+            "type" : "boolean"
+          },
+          "token" : {
+            "type" : "string"
+          },
+          "quota" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "volumeUtiliseOctets" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volumeVersionUtiliseOctets" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "envoiEmailPartage" : {
+            "type" : "boolean"
+          },
+          "envoiEmailLienPublic" : {
+            "type" : "boolean"
+          },
+          "fuseauHoraire" : {
+            "$ref" : "#/components/schemas/FuseauHoraire"
+          },
+          "dateCreation" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "role" : {
+            "$ref" : "#/components/schemas/Role"
+          },
+          "groupe" : {
+            "$ref" : "#/components/schemas/Groupe"
+          },
+          "langue" : {
+            "$ref" : "#/components/schemas/Langue"
+          },
+          "dossiers" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DossierCloud"
+            }
+          },
+          "agentList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Agent"
+            }
+          },
+          "contactList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Contact"
+            }
+          },
+          "comptePartageList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ComptePartage"
+            }
+          },
+          "adminGroupeList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AdminGroupe"
+            }
+          },
+          "compteWorkingGroupList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/CompteWorkingGroup"
+            }
+          },
+          "rememberMeList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/RememberMe"
+            }
+          },
+          "publicLinkList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/LienPublic"
+            }
+          },
+          "favoritesList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Favorites"
+            }
+          },
+          "deletedCloudFoldersList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/DeletedCloudFolder"
+            }
+          },
+          "origineCreation" : {
+            "type" : "string"
+          },
+          "dejaEnDepassement" : {
+            "type" : "boolean"
+          },
+          "managementExtern" : {
+            "type" : "boolean"
+          },
+          "dailyMail" : {
+            "type" : "boolean"
+          },
+          "dailyMailTrigger" : {
+            "type" : "boolean"
+          },
+          "weeklyMail" : {
+            "type" : "boolean"
+          },
+          "showInfoMyBox" : {
+            "type" : "boolean"
+          },
+          "copieMailsAdmin" : {
+            "type" : "boolean"
+          },
+          "fonction" : {
+            "type" : "string"
+          },
+          "lastDatePluginOultlookUsage" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "autoExpirationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "fullName" : {
+            "type" : "string"
+          },
+          "fullNameOrEmail" : {
+            "type" : "string"
+          },
+          "emailWithFullNameOrJustEmail" : {
+            "type" : "string"
+          },
+          "quotaInOctets" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volumeTotalUtiliseOctets" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volumeTotalUsedInPercent" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "overQuota" : {
+            "type" : "boolean"
+          },
+          "overQuotaAndBlockedPolicy" : {
+            "type" : "boolean"
+          },
+          "langueLocale" : {
+            "type" : "object",
+            "properties" : {
+              "displayName" : {
+                "type" : "string"
+              },
+              "script" : {
+                "type" : "string"
+              },
+              "country" : {
+                "type" : "string"
+              },
+              "variant" : {
+                "type" : "string"
+              },
+              "extensionKeys" : {
+                "uniqueItems" : true,
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              },
+              "unicodeLocaleAttributes" : {
+                "uniqueItems" : true,
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              },
+              "unicodeLocaleKeys" : {
+                "uniqueItems" : true,
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              },
+              "iso3Language" : {
+                "type" : "string"
+              },
+              "iso3Country" : {
+                "type" : "string"
+              },
+              "displayLanguage" : {
+                "type" : "string"
+              },
+              "displayScript" : {
+                "type" : "string"
+              },
+              "displayCountry" : {
+                "type" : "string"
+              },
+              "displayVariant" : {
+                "type" : "string"
+              },
+              "language" : {
+                "type" : "string"
+              }
+            }
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ComptePartage" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "partage" : {
+            "$ref" : "#/components/schemas/Partage"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "READ", "WRITE" ]
+          },
+          "dateCreation" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "actif" : {
+            "type" : "boolean"
+          },
+          "token" : {
+            "type" : "string"
+          },
+          "writable" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "CompteWorkingGroup" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "workingGroup" : {
+            "$ref" : "#/components/schemas/WorkingGroup"
+          }
+        }
+      },
+      "Contact" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "emailPersonnel" : {
+            "type" : "string"
+          },
+          "emailTravail" : {
+            "type" : "string"
+          },
+          "prenom" : {
+            "type" : "string"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "nomComplet" : {
+            "type" : "string"
+          },
+          "adresseRue" : {
+            "type" : "string"
+          },
+          "adresseVille" : {
+            "type" : "string"
+          },
+          "adresseCodePostal" : {
+            "type" : "string"
+          },
+          "adressePays" : {
+            "type" : "string"
+          },
+          "note" : {
+            "type" : "string"
+          },
+          "dateAnniversaire" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "telephoneDomicile" : {
+            "type" : "string"
+          },
+          "telephoneMobile" : {
+            "type" : "string"
+          },
+          "telephoneTravail" : {
+            "type" : "string"
+          },
+          "societe" : {
+            "type" : "string"
+          },
+          "fonction" : {
+            "type" : "string"
+          },
+          "photoData" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "photoMediaType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "DeletedCloudFolder" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "infosDeletedCloudFolders" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InfoDeletedCloudFolder"
+            }
+          }
+        }
+      },
+      "DossierCloud" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "dossiers" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Ressource"
+            }
+          },
+          "infosDossierCloud" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InfoDossierCloud"
+            }
+          },
+          "myBox" : {
+            "type" : "boolean"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "virtualPath" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Favorites" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ressource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          }
+        }
+      },
+      "FsItem" : {
+        "type" : "object",
+        "properties" : {
+          "displayedName" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "path" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "rootRepositoryPath" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "cloudFolderName" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "DIR", "FILE", "UNKNOWN" ]
+          },
+          "lastModifiedDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "owner" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "crashed" : {
+            "type" : "boolean"
+          },
+          "cloudFolder" : {
+            "type" : "boolean"
+          },
+          "myBox" : {
+            "type" : "boolean"
+          },
+          "favorites" : {
+            "type" : "boolean"
+          },
+          "publicLink" : {
+            "type" : "boolean"
+          },
+          "writePermission" : {
+            "type" : "boolean"
+          },
+          "inSync" : {
+            "type" : "boolean"
+          },
+          "accessibleBy" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ComptePartage"
+            }
+          },
+          "ressourceId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "sharedAccounts" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ComptePartage"
+            }
+          },
+          "file" : {
+            "type" : "boolean"
+          },
+          "extension" : {
+            "type" : "string"
+          },
+          "shared" : {
+            "type" : "boolean"
+          },
+          "location" : {
+            "type" : "string"
+          },
+          "rootFsItem" : {
+            "$ref" : "#/components/schemas/FsItem"
+          },
+          "new" : {
+            "type" : "boolean"
+          },
+          "icon" : {
+            "type" : "string"
+          },
+          "dir" : {
+            "type" : "boolean"
+          },
+          "fullPath" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "escapedFullPath" : {
+            "type" : "string"
+          },
+          "unknown" : {
+            "type" : "boolean"
+          },
+          "hashUrl" : {
+            "type" : "string"
+          },
+          "inShare" : {
+            "type" : "boolean"
+          },
+          "sharedAccountsName" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "navigationFsItemList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/FsItem"
+            }
+          },
+          "syncing" : {
+            "type" : "boolean"
+          },
+          "fileType" : {
+            "type" : "string"
+          },
+          "accessibleVirtualPath" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "rootLocation" : {
+            "type" : "string"
+          },
+          "linkedSyncPcAsString" : {
+            "type" : "string"
+          },
+          "virtualPath" : {
+            "$ref" : "#/components/schemas/Path"
+          }
+        }
+      },
+      "FuseauHoraire" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "olsonId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Groupe" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "actif" : {
+            "type" : "boolean"
+          },
+          "quotaMaxTotal" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaCompteDefaut" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "quotaInvitationDefaut" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "permissionInvitation" : {
+            "type" : "boolean"
+          },
+          "nbMaxComptes" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "maxComptesBlocking" : {
+            "type" : "boolean"
+          },
+          "politiqueDepassementQuota" : {
+            "type" : "string",
+            "enum" : [ "BLOCK", "INFORM" ]
+          },
+          "qosRestriction" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dateCreation" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "commentaire1" : {
+            "type" : "string"
+          },
+          "commentaire2" : {
+            "type" : "string"
+          },
+          "whiteList" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "comptes" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Compte"
+            }
+          },
+          "adminGroupeList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AdminGroupe"
+            }
+          },
+          "dailyMail" : {
+            "type" : "boolean"
+          },
+          "weeklyMail" : {
+            "type" : "boolean"
+          },
+          "pluginOutlookAvailable" : {
+            "type" : "boolean"
+          },
+          "pluginThunderbirdAvailable" : {
+            "type" : "boolean"
+          },
+          "syncEnabled" : {
+            "type" : "boolean"
+          },
+          "image" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "quotaMaxTotalInOctets" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "InfoAgent" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "version" : {
+            "type" : "string"
+          }
+        }
+      },
+      "InfoDeletedCloudFolder" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "deletedCloudFolder" : {
+            "$ref" : "#/components/schemas/DeletedCloudFolder"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "octetsData" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "octetsDataVersion" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "octetsDataTrash" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "InfoDossierCloud" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "dossierCloud" : {
+            "$ref" : "#/components/schemas/DossierCloud"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "octetsData" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "octetsDataVersion" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "octetsDataTrash" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "InfoPropagation" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "synchronisation" : {
+            "$ref" : "#/components/schemas/Synchronisation"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "subPath" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endInfos" : {
+            "type" : "string"
+          },
+          "progressInfos" : {
+            "type" : "string"
+          },
+          "typePropagation" : {
+            "type" : "string",
+            "enum" : [ "PUSH_CREATE_FILE", "PULL_CREATE_FILE", "PUSH_DELETE_FILE", "PULL_DELETE_FILE", "PUSH_CHANGE_FILE", "PULL_CHANGE_FILE", "PUSH_CREATE_DIR", "PULL_CREATE_DIR", "PUSH_DELETE_DIR", "PULL_DELETE_DIR", "PUSH_MOVE", "PULL_MOVE" ]
+          },
+          "typePropagationEnd" : {
+            "type" : "string",
+            "enum" : [ "NOT_ENDED", "SUCCESS", "FAILURE", "CANCELED" ]
+          },
+          "sizeAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sizeServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModifiedAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModifiedServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endType" : {
+            "type" : "string",
+            "enum" : [ "NOT_ENDED", "SUCCESS", "FAILURE", "CANCELED" ]
+          },
+          "entType" : {
+            "type" : "string",
+            "writeOnly" : true,
+            "enum" : [ "NOT_ENDED", "SUCCESS", "FAILURE", "CANCELED" ]
+          },
+          "getlinkedAgent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "localPath" : {
+            "type" : "string"
+          },
+          "linkedCompte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "remotePath" : {
+            "type" : "string"
+          }
+        }
+      },
+      "InfoSynchronisation" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "synchronisation" : {
+            "$ref" : "#/components/schemas/Synchronisation"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "linkedAgent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "linkedCompte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "sync" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "Langue" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "localeId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "LienPublic" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ressource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "hash" : {
+            "type" : "string"
+          },
+          "dateCreation" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "dureeValidite" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "expirationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "validitySet" : {
+            "type" : "boolean"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "uploadAllowed" : {
+            "type" : "boolean"
+          },
+          "uploadNotification" : {
+            "type" : "boolean"
+          },
+          "contenuMasque" : {
+            "type" : "boolean"
+          },
+          "deleteContentOnExpiration" : {
+            "type" : "boolean"
+          },
+          "deleteOnAccess" : {
+            "type" : "boolean"
+          },
+          "forceDownload" : {
+            "type" : "boolean"
+          },
+          "hideDownloadButtons" : {
+            "type" : "boolean"
+          },
+          "publicLinkAlarmList" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/PublicLinkAlarm"
+            }
+          },
+          "expired" : {
+            "type" : "boolean"
+          },
+          "displayedName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "LienWebDav" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ressource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "dateCreation" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          }
+        }
+      },
+      "Partage" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ressource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          },
+          "listeComptePartage" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ComptePartage"
+            }
+          },
+          "creationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "proprietaire" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "nom" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Path" : {
+        "type" : "object",
+        "properties" : {
+          "floating" : {
+            "type" : "boolean"
+          },
+          "root" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "length" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "parent" : {
+            "$ref" : "#/components/schemas/Path"
+          },
+          "absolute" : {
+            "type" : "boolean"
+          },
+          "relative" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "PublicLinkAlarm" : {
+        "type" : "object",
+        "properties" : {
+          "lienPublic" : {
+            "$ref" : "#/components/schemas/LienPublic"
+          },
+          "mail" : {
+            "type" : "string"
+          }
+        }
+      },
+      "RememberMe" : {
+        "type" : "object",
+        "properties" : {
+          "selector" : {
+            "type" : "string"
+          },
+          "hashedValidator" : {
+            "type" : "string"
+          },
+          "compte" : {
+            "$ref" : "#/components/schemas/Compte"
+          },
+          "expirationDate" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "Role" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "nom" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Synchronisation" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ressource" : {
+            "$ref" : "#/components/schemas/Ressource"
+          },
+          "agent" : {
+            "$ref" : "#/components/schemas/Agent"
+          },
+          "nom" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "typeSynchronisation" : {
+            "type" : "string",
+            "enum" : [ "MONTANT", "DESCENDANT", "BIDIRECTIONNEL", "INACTIF" ]
+          },
+          "infosSynchronisation" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InfoSynchronisation"
+            }
+          },
+          "infosPropagation" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/InfoPropagation"
+            }
+          },
+          "type" : {
+            "type" : "string",
+            "enum" : [ "MONTANT", "DESCENDANT", "BIDIRECTIONNEL", "INACTIF" ]
+          },
+          "remotePath" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Terminal" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "idUniversel" : {
+            "type" : "string"
+          }
+        }
+      },
+      "File" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "idCloudFolder" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModified" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "FileUploadForm" : {
+        "type" : "object",
+        "properties" : {
+          "fileContent" : {
+            "type" : "object"
+          }
+        }
+      },
+      "Folder" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "idCloudFolder" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModified" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "FSElement" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string"
+          },
+          "idCloudFolder" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModified" : {
+            "type" : "string",
+            "format" : "date-time"
+          }
+        }
+      },
+      "SyncInfo" : {
+        "type" : "object",
+        "properties" : {
+          "syncId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "startTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbFichiersNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nbRepertoiresNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsSync" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsNotSyncAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "volOctetsNotSyncServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "PropagationInfo" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "syncId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "date" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "subPath" : {
+            "type" : "string"
+          },
+          "startTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endTime" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "endInfos" : {
+            "type" : "string"
+          },
+          "progressInfos" : {
+            "type" : "string"
+          },
+          "propagationType" : {
+            "type" : "string"
+          },
+          "propagationTypeEnd" : {
+            "type" : "string"
+          },
+          "sizeAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "sizeServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModifiedAgent" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastModifiedServer" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
+      },
+      "PublicLinkNotification" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          },
+          "emails" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "creatorInCci" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "ShareCreationRequest" : {
+        "type" : "object",
+        "properties" : {
+          "message" : {
+            "type" : "string"
+          },
+          "emails" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "shareType" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ShareByAccount" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "accountId" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "ownerName" : {
+            "type" : "string"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "shareType" : {
+            "type" : "string"
+          },
+          "cloudFolder" : {
+            "$ref" : "#/components/schemas/CloudFolder"
+          },
+          "active" : {
+            "type" : "boolean"
+          },
+          "subPath" : {
+            "type" : "string"
+          }
+        }
+      },
+      "ShareCreationResponse" : {
+        "type" : "object",
+        "properties" : {
+          "share" : {
+            "$ref" : "#/components/schemas/Share"
+          },
+          "unauthorizedEmails" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "Resource" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "subPath" : {
+            "type" : "string"
+          },
+          "cloudFolder" : {
+            "$ref" : "#/components/schemas/CloudFolder"
+          }
+        }
+      },
+      "Synchronization" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "syncType" : {
+            "type" : "string"
+          },
+          "resource" : {
+            "$ref" : "#/components/schemas/Resource"
+          }
+        }
+      },
+      "SharingInfo" : {
+        "type" : "object",
+        "properties" : {
+          "sharingOwner" : {
+            "type" : "string"
+          },
+          "userBindToMyShare" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "shareType" : {
+            "type" : "string",
+            "enum" : [ "DOSSIER_CLOUD_PRIVE", "DOSSIER_CLOUD_PARTAGE", "PARTAGE" ]
+          },
+          "shareRight" : {
+            "type" : "string",
+            "enum" : [ "READ_WRITE", "READ_ONLY" ]
+          }
+        }
+      },
+      "SyncSharingInfo" : {
+        "type" : "object",
+        "properties" : {
+          "synchronization" : {
+            "$ref" : "#/components/schemas/Synchronization"
+          },
+          "sharingInfo" : {
+            "$ref" : "#/components/schemas/SharingInfo"
+          }
+        }
+      },
+      "CloudFolderSharingInfo" : {
+        "type" : "object",
+        "properties" : {
+          "cloudFolder" : {
+            "$ref" : "#/components/schemas/CloudFolder"
+          },
+          "sharingInfo" : {
+            "$ref" : "#/components/schemas/SharingInfo"
+          }
+        }
+      }
+    }
+  }
+}

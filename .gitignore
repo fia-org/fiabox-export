@@ -1,0 +1,24 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Account list (real staff emails / PII) — share separately, not in the repo
+emails.txt
+emails_all.txt
+!emails.example.txt
+
+# Generated output (metadata CSVs + downloaded file content)
+exports/
+downloads/
+*.csv
+live-openapi.json
+
+# Admin exports (PII) — kept out even though *.csv already covers them
+Users.csv
+allEvents.csv
+
+# OS / Python cruft
+.DS_Store
+__pycache__/
+*.pyc
