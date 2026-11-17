@@ -66,7 +66,7 @@ Options: `--dest DIR` (default `downloads/`), `--retries N` (default 4),
 - A browser `User-Agent` is required (Cloudflare blocks the default urllib UA).
 - Files are addressed by `GET /ws/api/files/{idCloudFolder}/{url-encoded path}` —
   a numeric cloud-folder id + the file's path relative to that folder's root.
-- `openapi.json` is the full API spec for reference.
+- `docs/fiabox-openapi.json` is the full API spec for reference.
 
 ## Files in this repo
 
@@ -75,7 +75,7 @@ Options: `--dest DIR` (default `downloads/`), `--retries N` (default 4),
 | `enumerate.py`, `download.py` | the two scripts |
 | `.env.example` | credential template (copy to `.env`) |
 | `emails.example.txt` | format for the account list (copy to `emails.txt`) |
-| `openapi.json` | FIAbox REST API spec |
+| `docs/fiabox-openapi.json` | FIAbox REST API spec |
 | `SCHEMA.md` | schema + join model + caveats for the exported CSVs |
 
 Not committed (see `.gitignore`): `.env`, `emails.txt`, downloaded content,
