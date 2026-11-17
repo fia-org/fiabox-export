@@ -27,9 +27,19 @@ FIABOX_PASSWORD=your-password
 The login must be a **superAdmin** account — the scripts mint a per-user token via
 `POST /ws/api/accounts/authBySuperAdmin/{email}` to read each account.
 
+> **Why per-account login instead of an admin endpoint.** FIAbox has a separate
+> admin API (`/ws/admin/api/*`) that could list all accounts/shares/links in one
+> pass, but it requires a distinct admin-console credential held on the VM, which we
+> do **not** have. So this toolkit works entirely through the **user** API, using the
+> superAdmin "impersonate" route to log in as each account in turn and read its own
+> files, folders, shares and links. That's also why the account list must be supplied
+> externally (below) — the user API has no "list all accounts" endpoint. See the
+> "Not captured here — available only with admin-API access" section of `SCHEMA.md`
+> for what the admin API would add on top.
+
 Provide the list of accounts to process in **`emails.txt`** (one email per line;
-see `emails.example.txt`). The user API has no "list all accounts" endpoint, so this
-list comes from outside — e.g. an admin-console user export.
+see `emails.example.txt`). This list comes from outside — e.g. an admin-console user
+export (`Users.csv`).
 
 ## 2. Inventory (metadata only, read-only)
 
